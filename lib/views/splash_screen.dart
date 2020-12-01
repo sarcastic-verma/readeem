@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
+import 'package:readeem/views/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
+  static const id = '/splash';
+
   SplashScreen({Key key}) : super(key: key);
 
   @override
@@ -10,6 +15,16 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Column(
+        children: [
+          SpinKitWave(color: Theme.of(context).accentColor),
+          FlatButton(
+            onPressed: () => {Get.offAndToNamed(HomeScreen.id)},
+            child: Text('go'),
+          )
+        ],
+      ),
+    );
   }
 }
