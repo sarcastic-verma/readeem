@@ -3,6 +3,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:readeem/views/home_screen.dart';
 
+import 'auth_screen.dart';
+
 class SplashScreen extends StatefulWidget {
   static const id = '/splash';
 
@@ -20,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           SpinKitWave(color: Theme.of(context).accentColor),
           FlatButton(
-            onPressed: () => {Get.offAndToNamed(HomeScreen.id)},
+            onPressed: () => {Get.offAndToNamed(AuthScreen.id)},
             child: Text('go'),
           )
         ],

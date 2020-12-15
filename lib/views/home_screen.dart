@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:readeem/components/LoadingWrapper.dart';
+import 'package:readeem/components/loading_wrapper.dart';
 import 'package:readeem/controllers/loading_controller.dart';
 
 class HomeScreen extends StatelessWidget {
