@@ -11,12 +11,12 @@ class LoadingWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
+    return GetBuilder<LoadingController>(builder: (controller) {
       return WillPopScope(
         child: Stack(
           children: [
             child,
-            Get.find<LoadingController>().getLoadingStatus(key: id)
+            controller.getLoadingStatus(key: id)
                 ? Container(
                     width: double.infinity,
                     height: double.infinity,
@@ -27,8 +27,7 @@ class LoadingWrapper extends StatelessWidget {
                 : SizedBox.shrink(),
           ],
         ),
-        onWillPop: () => Future.value(
-            !Get.find<LoadingController>().getLoadingStatus(key: id)),
+        onWillPop: () => Future.value(!controller.getLoadingStatus(key: id)),
       );
     });
   }
