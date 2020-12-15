@@ -11,21 +11,25 @@ class LoadingWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      child: Stack(
-        children: [
-          child,
-          Container(
-            width: double.infinity,
-            height: double.infinity,
-            child: SpinKitWave(
-              color: Theme.of(context).accentColor,
-            ),
-          )
-        ],
-      ),
-      onWillPop: () => Future.value(
-          !Get.find<LoadingController>().getLoadingStatus(key: id)),
-    );
+    return Obx(() {
+      return WillPopScope(
+        child: Stack(
+          children: [
+            child,
+            Get.find<LoadingController>().getLoadingStatus(key: id)
+                ? Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: SpinKitWave(
+                      color: Theme.of(context).accentColor,
+                    ),
+                  )
+                : SizedBox.shrink(),
+          ],
+        ),
+        onWillPop: () => Future.value(
+            !Get.find<LoadingController>().getLoadingStatus(key: id)),
+      );
+    });
   }
 }
