@@ -5,8 +5,9 @@ import 'package:readeem/controllers/loading_controller.dart';
 
 class LoadingWrapper extends StatelessWidget {
   final Widget child;
+  final String id;
 
-  LoadingWrapper({@required this.child});
+  LoadingWrapper({@required this.child, @required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +24,8 @@ class LoadingWrapper extends StatelessWidget {
           )
         ],
       ),
-      onWillPop: () =>
-          Future.value(!Get.find<LoadingController>().isLoading.value),
+      onWillPop: () => Future.value(
+          !Get.find<LoadingController>().getLoadingStatus(key: id)),
     );
   }
 }

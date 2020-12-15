@@ -1,9 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class LoadingController extends GetxController {
-  RxBool isLoading = false.obs;
+  RxMap loadingMap = {}.obs;
 
-  void changeLoadingStatus() {
-    this.isLoading.value = !this.isLoading.value;
+  bool getLoadingStatus({@required String key}) {
+    return loadingMap[key] ?? false;
+  }
+
+  void startLoading({@required String key}) {
+    loadingMap[key] = true;
+  }
+
+  void stopLoading({@required String key}) {
+    loadingMap[key] = false;
   }
 }

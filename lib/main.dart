@@ -21,7 +21,12 @@ class MyApp extends StatelessWidget {
           Get.put(UserController())
         },
       ),
-      getPages: [GetPage(name: HomeScreen.id, page: () => HomeScreen())],
+      getPages: [
+        GetPage(
+          name: HomeScreen.id,
+          page: () => HomeScreen(),
+        ),
+      ],
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
