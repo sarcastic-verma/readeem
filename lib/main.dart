@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:readeem/controllers/loading_controller.dart';
 import 'package:readeem/controllers/user_controllers.dart';
+import 'package:readeem/views/auth_screen.dart';
 import 'package:readeem/views/home_screen.dart';
 import 'package:readeem/views/splash_screen.dart';
 
 void main() {
   runApp(MyApp());
 }
+
+// user logs in 1st time - 2 tokens issued -> stored in SP
+
+// user restarts app when access token is not expired -> take that token -> ringa ringa roses
+
+// user restarts app when access token is expired -> sends authorized req -> refresh token used to fetch new pairs of token -> store in SP
 
 class MyApp extends StatelessWidget {
   @override
@@ -22,6 +29,10 @@ class MyApp extends StatelessWidget {
         },
       ),
       getPages: [
+        GetPage(
+          name: AuthScreen.id,
+          page: () => AuthScreen(),
+        ),
         GetPage(
           name: HomeScreen.id,
           page: () => HomeScreen(),
