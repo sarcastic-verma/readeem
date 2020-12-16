@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:readeem/controllers/loading_controller.dart';
-import 'package:readeem/controllers/user_controllers.dart';
 import 'package:readeem/views/auth_screen.dart';
 import 'package:readeem/views/home_screen.dart';
 import 'package:readeem/views/splash_screen.dart';
+
+import 'getX_controllers/loading_getX_controller.dart';
+import 'getX_controllers/user_getX_controllers.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,8 +25,8 @@ class MyApp extends StatelessWidget {
       home: SplashScreen(),
       initialBinding: BindingsBuilder(
         () => {
-          Get.put(LoadingController(), permanent: true),
-          Get.put(UserController())
+          Get.put(LoadingGetXController(), permanent: true),
+          Get.put(UserGetXController())
         },
       ),
       getPages: [

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:readeem/components/loading_wrapper.dart';
-import 'package:readeem/controllers/loading_controller.dart';
+import 'package:readeem/getX_controllers/loading_getX_controller.dart';
 
 class HomeScreen extends StatelessWidget {
   static const id = '/home';
@@ -18,13 +18,13 @@ class HomeScreen extends StatelessWidget {
                 Text('Home'),
                 FlatButton(
                   onPressed: () {
-                    Get.find<LoadingController>().startLoading(key: id);
+                    Get.find<LoadingGetXController>().startLoading(key: id);
                   },
                   child: Text("Load me"),
                 ),
                 FlatButton(
                   onPressed: () {
-                    Get.find<LoadingController>().stopLoading(key: id);
+                    Get.find<LoadingGetXController>().stopLoading(key: id);
                   },
                   child: Text("Load me"),
                 )
