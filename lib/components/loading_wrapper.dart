@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:readeem/controllers/loading_controller.dart';
+import 'package:readeem/getX_controllers/loading_getX_controller.dart';
 
 class LoadingWrapper extends StatelessWidget {
   final Widget child;
@@ -11,7 +11,7 @@ class LoadingWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<LoadingController>(builder: (controller) {
+    return GetBuilder<LoadingGetXController>(builder: (controller) {
       return WillPopScope(
         child: Stack(
           children: [
