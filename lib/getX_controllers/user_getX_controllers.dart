@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:readeem/model/user.dart';
 
-class UserController extends GetxController {
-  Rx<User> user = User().obs;
+class UserGetXController extends GetxController {
+  Rx<User> user = User(name: null, mobile: null).obs;
 
   updateUser(User updatedUser) {
     user.update((value) {

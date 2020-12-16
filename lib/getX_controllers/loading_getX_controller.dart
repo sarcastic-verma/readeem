@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-class LoadingController extends GetxController {
+class LoadingGetXController extends GetxController {
   Map<String,bool> loadingMap = {};
 
   bool getLoadingStatus({@required String key}) {
