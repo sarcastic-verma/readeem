@@ -23,6 +23,20 @@ class UserController {
       return null;
     }
 
-    return User();
+    return User(
+      name: null,
+      previousOrders: null,
+      changePasswordDate: null,
+      reward: null,
+      id: null,
+      joinDate: null,
+      mobile: null,
+      img: null,
+      email: null,
+      cart: null,
+      favBooks: null,
+      completedBooks: null,
+      inProgressBooks: null,
+    );
   }
 }
