@@ -27,6 +27,8 @@ dependencies:
   google_fonts: ^1.1.1
   get: ^3.23.1
   dio: ^3.0.10
+  blurhash: ^0.2.1
+  shimmer: ^1.1.2
   logger: ^0.9.4
   shared_preferences: ^0.5.12+4
   argon_buttons_flutter: ^1.0.6
