@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 
+import 'package:flutter/material.dart';
+
 final Uint8List kTransparentImage = new Uint8List.fromList(<int>[
   0x89,
   0x50,
@@ -66,3 +68,22 @@ final Uint8List kTransparentImage = new Uint8List.fromList(<int>[
   0x44,
   0xAE,
 ]);
+final InputDecoration kTextFieldDecoration = InputDecoration(
+  border: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(10),
+    borderSide: BorderSide(
+      color: Colors.blueGrey[800],
+      width: 3,
+    ),
+  ),
+  filled: true,
+  hintStyle: TextStyle(
+    color: Colors.blueGrey[300],
+  ),
+  hintText: 'Email',
+  fillColor: Colors.white,
+  errorStyle: TextStyle(
+    fontSize: 12,
+    color: Colors.redAccent,
+  ),
+);
