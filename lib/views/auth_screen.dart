@@ -14,7 +14,7 @@ class AuthScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final bool keyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Colors.white,
       body: Stack(
         children: <Widget>[
           Container(
@@ -28,7 +28,7 @@ class AuthScreen extends StatelessWidget {
             child: WaveWidget(
               size: size,
               yOffset: size.height / 3.0,
-              color: Theme.of(context).primaryColor,
+              color: Colors.white,
             ),
           ),
           Padding(
@@ -39,7 +39,7 @@ class AuthScreen extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                     color: keyboardOpen
                         ? Theme.of(context).accentColor
-                        : Theme.of(context).primaryColor,
+                        : Colors.white,
                   ),
             ),
           ),
@@ -56,6 +56,7 @@ class AuthScreen extends StatelessWidget {
                       email = val;
                     },
                   ),
+                  SizedBox(height: 15,),
                   CustomTextFormField(
                     labelText: "Password",
                     onChanged: (val) {

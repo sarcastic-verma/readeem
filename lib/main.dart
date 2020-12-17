@@ -40,7 +40,8 @@ class MyApp extends StatelessWidget {
         ),
       ],
       theme: ThemeData(
-        primaryColor: Colors.white,
+        primaryColor: Colors.blue,
+        accentColor: Colors.indigo,
       ),
     );
   }
