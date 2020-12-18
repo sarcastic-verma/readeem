@@ -1,5 +1,7 @@
+import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:readeem/components/custom_text_form_field.dart';
 import 'package:readeem/components/wave_widget.dart';
 
@@ -34,8 +36,8 @@ class AuthScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: size.height * 0.10, left: 20),
             child: Text(
-              "Login",
-              style: Theme.of(context).textTheme.headline1.copyWith(
+              "Welcome Back",
+              style: Theme.of(context).textTheme.headline2.copyWith(
                     fontWeight: FontWeight.w400,
                     color: keyboardOpen
                         ? Theme.of(context).accentColor
@@ -56,13 +58,44 @@ class AuthScreen extends StatelessWidget {
                       email = val;
                     },
                   ),
-                  SizedBox(height: 15,),
+                  SizedBox(
+                    height: 15,
+                  ),
                   CustomTextFormField(
                     labelText: "Password",
                     onChanged: (val) {
                       password = val;
                     },
-                  )
+                  ),
+                  SizedBox(
+                    height: 35,
+                  ),
+                  ArgonButton(
+                      height: 50,
+                      width: size.width * 0.6,
+                      borderRadius: 5.0,
+                      color: Theme.of(context).accentColor,
+                      child: Text(
+                        "Log In",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700),
+                      ),
+                      loader: Container(
+                        padding: EdgeInsets.all(10),
+                        child: SpinKitRotatingCircle(
+                          color: Colors.white,
+                          // size: loaderWidth ,
+                        ),
+                      ),
+                      onTap: (startLoading, stopLoading, btnState) async {
+                        if (btnState == ButtonState.Idle) {
+                          startLoading();
+                          await Future.delayed(Duration(seconds: 2));
+                          stopLoading();
+                        }
+                      })
                 ],
               ),
             ),

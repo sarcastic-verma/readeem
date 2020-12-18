@@ -14,18 +14,22 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  Future checkTokens() async {
+    await Future.delayed(Duration(milliseconds: 0));
+    Get.offAllNamed(AuthScreen.id);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkTokens();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          SpinKitWave(color: Theme.of(context).accentColor),
-          FlatButton(
-            onPressed: () => {Get.offAndToNamed(AuthScreen.id)},
-            child: Text('go'),
-          )
-        ],
-      ),
+      body: Center(child: SpinKitWave(color: Theme.of(context).accentColor)),
     );
   }
 }
