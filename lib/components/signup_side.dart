@@ -12,13 +12,10 @@ class SignupSide extends StatelessWidget {
   final Size size;
   String password, email;
   final VoidCallback toggleSide;
-  final bool keyboardOpen;
-  final _formKey = GlobalKey<FormState>();
+  final bool keyboardOpen = Get.mediaQuery.viewInsets.bottom > 0;
+  static final _formKey = GlobalKey<FormState>();
 
-  SignupSide(
-      {@required this.size,
-      @required this.keyboardOpen,
-      @required this.toggleSide});
+  SignupSide({@required this.size, @required this.toggleSide});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +43,6 @@ class SignupSide extends StatelessWidget {
               child: Text(
                 "Nice meeting\nYou.",
                 style: Theme.of(context).textTheme.headline2.copyWith(
-                      fontFamily: 'Apple SD Gothic Neo',
                       fontWeight: FontWeight.w400,
                       color: keyboardOpen
                           ? Theme.of(context).accentColor
@@ -134,6 +130,7 @@ class SignupSide extends StatelessWidget {
                     TextSpan(
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
+                            print('lel');
                             toggleSide();
                           },
                         text: ' Log in\n',

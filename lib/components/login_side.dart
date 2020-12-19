@@ -11,14 +11,11 @@ import 'custom_text_form_field.dart';
 class LoginSide extends StatelessWidget {
   final Size size;
   String password, email;
-  final bool keyboardOpen;
   final VoidCallback toggleSide;
-  final _formKey = GlobalKey<FormState>();
+  static final _formKey = GlobalKey<FormState>();
+  final bool keyboardOpen = Get.mediaQuery.viewInsets.bottom > 0;
 
-  LoginSide(
-      {@required this.size,
-      @required this.keyboardOpen,
-      @required this.toggleSide});
+  LoginSide({@required this.size, @required this.toggleSide});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +43,6 @@ class LoginSide extends StatelessWidget {
               child: Text(
                 "Welcome\nBack",
                 style: Theme.of(context).textTheme.headline2.copyWith(
-                      fontFamily: 'Apple SD Gothic Neo',
                       fontWeight: FontWeight.w400,
                       color: keyboardOpen
                           ? Theme.of(context).accentColor
@@ -134,6 +130,7 @@ class LoginSide extends StatelessWidget {
                     TextSpan(
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
+                            print('lol');
                             toggleSide();
                           },
                         text: ' Sign up\n',

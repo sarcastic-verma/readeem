@@ -22,7 +22,6 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final bool keyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
     return Scaffold(
       backgroundColor: Colors.white,
       body: AnimatedSwitcher(
@@ -35,12 +34,10 @@ class _AuthScreenState extends State<AuthScreen> {
         },
         child: isLogIn
             ? LoginSide(
-                keyboardOpen: keyboardOpen,
                 size: size,
                 toggleSide: toggleSide,
               )
             : SignupSide(
-                keyboardOpen: keyboardOpen,
                 toggleSide: toggleSide,
                 size: size,
               ),
