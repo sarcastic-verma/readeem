@@ -6,6 +6,9 @@ const orderBase = baseUrl + '/api/order';
 const bookBase = baseUrl + '/api/book';
 const userBase = baseUrl + '/api/user';
 
+//ping route
+
+const pingServer = baseUrl + '/api/ping';
 //Auth Routes
 const login = authBase + '/login';
 const signUp = authBase + '/signUp';
