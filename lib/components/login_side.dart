@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:readeem/components/wave_widget.dart';
+import 'package:readeem/controllers/user_controller.dart';
 
 import 'custom_text_form_field.dart';
 
@@ -101,7 +102,9 @@ class LoginSide extends StatelessWidget {
                         onTap: (startLoading, stopLoading, btnState) async {
                           if (btnState == ButtonState.Idle) {
                             startLoading();
-                            await Future.delayed(Duration(seconds: 2));
+                            await UserController.loginController(
+                                email: 'shivam@gmail.com',
+                                password: 'tetPass');
                             stopLoading();
                           } else if (btnState == ButtonState.Busy) {
                             Get.snackbar(

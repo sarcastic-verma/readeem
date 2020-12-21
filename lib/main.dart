@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
           Get.put(UserGetXController())
         },
       ),
+      debugShowCheckedModeBanner: false,
       getPages: [
         GetPage(
           name: AuthScreen.id,
