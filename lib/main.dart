@@ -5,6 +5,7 @@ import 'package:readeem/views/home_screen.dart';
 import 'package:readeem/views/splash_screen.dart';
 
 import 'getX_controllers/loading_getX_controller.dart';
+import 'getX_controllers/tokens_getX_controller.dart';
 import 'getX_controllers/user_getX_controllers.dart';
 
 void main() {
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
       initialBinding: BindingsBuilder(
         () => {
           Get.put(LoadingGetXController(), permanent: true),
-          Get.put(UserGetXController())
+          Get.put(TokensGetXController(),permanent: true),
+          Get.put(UserGetXController(),permanent: true)
         },
       ),
       debugShowCheckedModeBanner: false,

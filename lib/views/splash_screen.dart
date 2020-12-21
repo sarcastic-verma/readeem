@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:readeem/getX_controllers/tokens_getX_controller.dart';
+import 'package:readeem/utilities/log_help.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'auth_screen.dart';
 
@@ -15,7 +18,10 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   Future checkTokens() async {
-    await Future.delayed(Duration(milliseconds: 0));
+    logger.d(Get.find<TokensGetXController>().refreshToken);
+    final sharedPref = await SharedPreferences.getInstance();
+    logger.d(sharedPref.getString('accessToken'));
+    logger.d(sharedPref.getString('refreshToken'));
     Get.offAllNamed(AuthScreen.id);
   }
 

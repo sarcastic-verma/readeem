@@ -5,6 +5,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:readeem/components/wave_widget.dart';
 import 'package:readeem/controllers/user_controller.dart';
+import 'package:readeem/getX_controllers/tokens_getX_controller.dart';
+import 'package:readeem/model/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'custom_text_form_field.dart';
 
@@ -102,9 +105,34 @@ class LoginSide extends StatelessWidget {
                         onTap: (startLoading, stopLoading, btnState) async {
                           if (btnState == ButtonState.Idle) {
                             startLoading();
-                            await UserController.loginController(
-                                email: 'shivam@gmail.com',
-                                password: 'tetPass');
+                            final response =
+                                await UserController.loginController(
+                                    email: 'shivam@gmail.com',
+                                    password: 'testPass');
+
+                            if (response['errorMessage'] == null) {
+                              User user = response['user'] as User;
+                              TokensGetXController tokens =
+                                  response['tokens'] as TokensGetXController;
+                              Get.find<TokensGetXController>().updateTokens(
+                                  accessToken: tokens.accessToken,
+                                  refreshToken: tokens.refreshToken);
+                              final sharedPref =
+                                  await SharedPreferences.getInstance();
+                              await sharedPref.setString(
+                                  'accessToken', tokens.accessToken);
+                              await sharedPref.setString(
+                                  'refreshToken', tokens.refreshToken);
+                            } else {
+                              Get.snackbar(
+                                "Error",
+                                response['errorMessage'],
+                                snackPosition: SnackPosition.BOTTOM,
+                                backgroundColor: Colors.red,
+                                colorText: Colors.white,
+                                margin: EdgeInsets.all(15),
+                              );
+                            }
                             stopLoading();
                           } else if (btnState == ButtonState.Busy) {
                             Get.snackbar(

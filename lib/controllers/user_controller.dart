@@ -42,30 +42,29 @@ class UserController {
     );
   }
 
-  static Future<User> loginController(
+  static Future<Map<String,dynamic>> loginController(
       {@required String email, @required String password}) async {
     try {
       Dio _dio = Dio();
-      final response = await _dio.post(login, data: {'email': email, 'password': password});
-      print(response);
-      return User(
-        name: null,
-        previousOrders: null,
-        changePasswordDate: null,
-        reward: null,
-        id: null,
-        joinDate: null,
-        mobile: null,
-        img: null,
-        email: null,
-        cart: null,
-        favBooks: null,
-        completedBooks: null,
-        inProgressBooks: null,
-      );
+      final response =
+          await _dio.post(login, data: {'email': email, 'password': password});
+      if (response.data['status'] == 'success') {
+        return {
+          'user': User.fromJson(response.data['user']),
+          'tokens': TokensGetXController.fromJsonObject({
+            'refreshToken': response.data['refreshToken'],
+            'accessToken': response.data['accessToken']
+          })
+        };
+      }
     } catch (err) {
-      logger.e(err);
-      return null;
+      if (err is DioError) {
+        logger.e(err.response);
+        return {'errorMessage': err.response.data['message']};
+      } else {
+        logger.e(err);
+        return {'errorMessage': 'An unknown error occurred, contact the team.'};
+      }
     }
   }
 }
