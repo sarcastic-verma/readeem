@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:readeem/views/auth_screen.dart';
+import 'package:readeem/views/connection_lost_screen.dart';
 import 'package:readeem/views/home_screen.dart';
 import 'package:readeem/views/splash_screen.dart';
 
@@ -26,9 +27,10 @@ class MyApp extends StatelessWidget {
       home: SplashScreen(),
       initialBinding: BindingsBuilder(
         () => {
+          // permanent here suggests that these bindings should remain in memory.
           Get.put(LoadingGetXController(), permanent: true),
-          Get.put(TokensGetXController(),permanent: true),
-          Get.put(UserGetXController(),permanent: true)
+          Get.put(TokensGetXController(), permanent: true),
+          Get.put(UserGetXController(), permanent: true)
         },
       ),
       debugShowCheckedModeBanner: false,
@@ -36,6 +38,12 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: AuthScreen.id,
           page: () => AuthScreen(),
+        ),
+        GetPage(
+          name: ConnectionLostScreen.id,
+          page: () => ConnectionLostScreen(
+            pageName: AuthScreen.id,
+          ),
         ),
         GetPage(
           name: HomeScreen.id,
