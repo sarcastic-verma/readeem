@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as Get;
@@ -42,7 +44,7 @@ class UserController {
     );
   }
 
-  static Future<Map<String,dynamic>> loginController(
+  static Future<Map<String, dynamic>> loginController(
       {@required String email, @required String password}) async {
     try {
       Dio _dio = Dio();
@@ -56,11 +58,18 @@ class UserController {
             'accessToken': response.data['accessToken']
           })
         };
+      } else {
+        return {'errorMessage': 'An unknown error occurred, contact the team.'};
       }
     } catch (err) {
       if (err is DioError) {
-        logger.e(err.response);
-        return {'errorMessage': err.response.data['message']};
+        if (err.error is SocketException) {
+          logger.e(err.error.message);
+          return {'errorMessage': 'Server Down'};
+        } else {
+          logger.e(err.response);
+          return {'errorMessage': err.response.data['message']};
+        }
       } else {
         logger.e(err);
         return {'errorMessage': 'An unknown error occurred, contact the team.'};

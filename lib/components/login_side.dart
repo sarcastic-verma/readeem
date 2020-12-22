@@ -7,6 +7,8 @@ import 'package:readeem/components/wave_widget.dart';
 import 'package:readeem/controllers/user_controller.dart';
 import 'package:readeem/getX_controllers/tokens_getX_controller.dart';
 import 'package:readeem/model/user.dart';
+import 'package:readeem/views/auth_screen.dart';
+import 'package:readeem/views/connection_lost_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'custom_text_form_field.dart';
@@ -124,6 +126,10 @@ class LoginSide extends StatelessWidget {
                               await sharedPref.setString(
                                   'refreshToken', tokens.refreshToken);
                             } else {
+                              if (response['errorMessage'] == 'Server Down') {
+                                navigator.pushNamed(ConnectionLostScreen.id,
+                                    arguments: AuthScreen.id);
+                              }
                               Get.snackbar(
                                 "Error",
                                 response['errorMessage'],
