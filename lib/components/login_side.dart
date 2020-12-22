@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:readeem/components/wave_widget.dart';
-import 'package:readeem/controllers/user_controller.dart';
+import 'package:readeem/controllers/auth_controller.dart';
 import 'package:readeem/getX_controllers/tokens_getX_controller.dart';
 import 'package:readeem/model/user.dart';
 import 'package:readeem/views/auth_screen.dart';
@@ -108,7 +108,7 @@ class LoginSide extends StatelessWidget {
                           if (btnState == ButtonState.Idle) {
                             startLoading();
                             final response =
-                                await UserController.loginController(
+                                await AuthController.loginController(
                                     email: 'shivam@gmail.com',
                                     password: 'testPass');
 
