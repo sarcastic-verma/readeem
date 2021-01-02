@@ -4,6 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:readeem/components/wave_widget.dart';
+import 'package:readeem/controllers/auth_controller.dart';
+import 'package:readeem/getX_controllers/tokens_getX_controller.dart';
+import 'package:readeem/getX_controllers/user_getX_controllers.dart';
+import 'package:readeem/model/user.dart';
+import 'package:readeem/views/auth_screen.dart';
+import 'package:readeem/views/connection_lost_screen.dart';
+import 'package:readeem/views/home_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'custom_text_form_field.dart';
 
@@ -19,6 +27,7 @@ class SignupSide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserGetXController userController = Get.find<UserGetXController>();
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -101,7 +110,40 @@ class SignupSide extends StatelessWidget {
                         onTap: (startLoading, stopLoading, btnState) async {
                           if (btnState == ButtonState.Idle) {
                             startLoading();
-                            await Future.delayed(Duration(seconds: 2));
+                            final response =
+                            await AuthController.signUpController(
+                                email: 'shivam@gmail.com',
+                                password: 'testPass');
+
+                            if (response['errorMessage'] == null) {
+                              final user = response['user'] as User;
+                              TokensGetXController tokens =
+                              response['tokens'] as TokensGetXController;
+                              Get.find<TokensGetXController>().updateTokens(
+                                  accessToken: tokens.accessToken,
+                                  refreshToken: tokens.refreshToken);
+                              userController.updateUser(user);
+                              final sharedPref =
+                              await SharedPreferences.getInstance();
+                              await sharedPref.setString(
+                                  'accessToken', tokens.accessToken);
+                              await sharedPref.setString(
+                                  'refreshToken', tokens.refreshToken);
+                              navigator.popAndPushNamed(HomeScreen.id);
+                            } else {
+                              if (response['errorMessage'] == 'Server Down') {
+                                navigator.pushNamed(ConnectionLostScreen.id,
+                                    arguments: AuthScreen.id);
+                              }
+                              Get.snackbar(
+                                "Error",
+                                response['errorMessage'],
+                                snackPosition: SnackPosition.BOTTOM,
+                                backgroundColor: Colors.red,
+                                colorText: Colors.white,
+                                margin: EdgeInsets.all(15),
+                              );
+                            }
                             stopLoading();
                           } else if (btnState == ButtonState.Busy) {
                             Get.snackbar(

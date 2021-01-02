@@ -8,6 +8,7 @@ import 'package:readeem/views/connection_lost_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'auth_screen.dart';
+import 'home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   static const id = '/splash';
@@ -23,9 +24,14 @@ class _SplashScreenState extends State<SplashScreen> {
     try {
       await Dio().get(pingServer);
       final sharedPref = await SharedPreferences.getInstance();
-      logger.d(sharedPref.getString('accessToken'));
-      logger.d(sharedPref.getString('refreshToken'));
-      Get.offAllNamed(AuthScreen.id);
+      try {
+        if (sharedPref.getString('accessToken').length != 0 &&
+            sharedPref.getString('refreshToken').length != 0) {
+          Get.offAllNamed(HomeScreen.id);
+        }
+      } catch (e) {
+        Get.offAllNamed(AuthScreen.id);
+      }
     } catch (e) {
       Get.offAllNamed(ConnectionLostScreen.id);
     }

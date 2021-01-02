@@ -19,8 +19,6 @@ class UserGetXController extends GetxController {
   ).obs;
 
   updateUser(User updatedUser) {
-    user.update((value) {
-      value = updatedUser;
-    });
+    user.value = updatedUser;
   }
 }

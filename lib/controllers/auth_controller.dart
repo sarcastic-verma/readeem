@@ -32,13 +32,13 @@ class AuthController {
     }
   }
 
-  static Future<User> signUp(
-      {@required String name,
-      @required String email,
-      @required String mobile,
-      @required bool isThirdParty,
-      File img,
-      String password = ''}) async {
+  static Future<Map<String, dynamic>> signUpController({
+    @required String name,
+    @required String email,
+    @required String mobile,
+    @required String password,
+    File img,
+  }) async {
     try {
       FormData formData = new FormData.fromMap({
         "name": name,
@@ -57,11 +57,22 @@ class AuthController {
           ),
         );
       }
-      Dio _dio = Dio()..interceptors.addAll([unauthorizedWrapper()]);
-      Map<String, dynamic> user;
-      return User.fromJson(user);
+      Dio _dio = Dio();
+      final response =
+          await _dio.post(signUp, data: {'email': email, 'password': password});
+      if (response.data['status'] == 'success') {
+        return {
+          'user': User.fromJson(response.data['user']),
+          'tokens': TokensGetXController.fromJsonObject({
+            'refreshToken': response.data['refreshToken'],
+            'accessToken': response.data['accessToken']
+          })
+        };
+      } else {
+        return {'errorMessage': 'An unknown error occurred, contact the team.'};
+      }
     } catch (err) {
-      return null;
+      return catchDioError(err);
     }
   }
 
