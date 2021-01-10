@@ -32,6 +32,7 @@ dependencies:
   dough: ^0.3.6
   logger: ^0.9.4
   shared_preferences: ^0.5.12+4
+  cached_network_image: ^2.5.0
   argon_buttons_flutter: ^1.0.6
   flutter_spinkit: ^4.1.2+1
   epub_viewer: ^0.1.9
