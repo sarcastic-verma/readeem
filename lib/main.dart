@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:readeem/components/e_bazaar_screen.dart';
 import 'package:readeem/views/auth_screen.dart';
 import 'package:readeem/views/connection_lost_screen.dart';
 import 'package:readeem/views/home_screen.dart';
@@ -25,7 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Readeem',
-      home: EBazaarScreen(),
+      home: SplashScreen(),
       initialBinding: BindingsBuilder(
         () => {
           // permanent here suggests that these bindings should remain in memory.
