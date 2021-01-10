@@ -19,7 +19,7 @@ class ConnectionLostScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Connection Lost,"),
+            Text("Server down"),
             TextButton(
               child: Text('Re-try'),
               onPressed: () async {

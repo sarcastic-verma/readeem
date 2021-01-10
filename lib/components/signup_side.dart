@@ -18,7 +18,7 @@ import 'custom_text_form_field.dart';
 // ignore: must_be_immutable
 class SignupSide extends StatelessWidget {
   final Size size;
-  String password, email;
+  String password, email, phone, name;
   final VoidCallback toggleSide;
   final bool keyboardOpen = Get.mediaQuery.viewInsets.bottom > 0;
   static final _formKey = GlobalKey<FormState>();
@@ -83,6 +83,24 @@ class SignupSide extends StatelessWidget {
                         labelText: "Password",
                         onChanged: (val) {
                           password = val;
+                        },
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      CustomTextFormField(
+                        labelText: "Name",
+                        onChanged: (val) {
+                          name = val;
+                        },
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      CustomTextFormField(
+                        labelText: "Phone",
+                        onChanged: (val) {
+                          phone = val;
                         },
                       ),
                       SizedBox(
