@@ -18,7 +18,7 @@ import 'custom_text_form_field.dart';
 // ignore: must_be_immutable
 class SignupSide extends StatelessWidget {
   final Size size;
-  String password, email, phone, name;
+  String password, email, mobile, name;
   final VoidCallback toggleSide;
   final bool keyboardOpen = Get.mediaQuery.viewInsets.bottom > 0;
   static final _formKey = GlobalKey<FormState>();
@@ -100,7 +100,7 @@ class SignupSide extends StatelessWidget {
                       CustomTextFormField(
                         labelText: "Phone",
                         onChanged: (val) {
-                          phone = val;
+                          mobile = val;
                         },
                       ),
                       SizedBox(
@@ -129,20 +129,22 @@ class SignupSide extends StatelessWidget {
                           if (btnState == ButtonState.Idle) {
                             startLoading();
                             final response =
-                            await AuthController.signUpController(
-                                email: 'shivam@gmail.com',
-                                password: 'testPass');
+                                await AuthController.signUpController(
+                                    email: email,
+                                    password: password,
+                                    mobile: mobile,
+                                    name: name);
 
                             if (response['errorMessage'] == null) {
                               final user = response['user'] as User;
                               TokensGetXController tokens =
-                              response['tokens'] as TokensGetXController;
+                                  response['tokens'] as TokensGetXController;
                               Get.find<TokensGetXController>().updateTokens(
                                   accessToken: tokens.accessToken,
                                   refreshToken: tokens.refreshToken);
                               userController.updateUser(user);
                               final sharedPref =
-                              await SharedPreferences.getInstance();
+                                  await SharedPreferences.getInstance();
                               await sharedPref.setString(
                                   'accessToken', tokens.accessToken);
                               await sharedPref.setString(
