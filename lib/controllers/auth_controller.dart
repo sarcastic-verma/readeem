@@ -121,6 +121,31 @@ class AuthController {
     }
   }
 
+  static Future<Map<String, dynamic>> thirdPartyController() async {
+    try {
+      Dio _dio = Dio();
+      return {};
+    } catch (err) {
+      return catchDioError(err);
+    }
+  }
+
+  static Future<Map<String, dynamic>> addPasswordToUserController() async {
+    try {
+      Dio _dio = Dio(
+        BaseOptions(
+          headers: {
+            'Authorization':
+                'Bearer ${Get.Get.find<TokensGetXController>().accessToken}',
+          },
+        ),
+      )..interceptors.add(unauthorizedWrapper());
+      return {};
+    } catch (err) {
+      return catchDioError(err);
+    }
+  }
+
   static Future<Map<String, dynamic>> logoutController() async {
     try {
       Dio _dio = Dio(
