@@ -99,14 +99,20 @@ class AuthController {
         BaseOptions(
           headers: {
             'Authorization':
-            'Bearer ${Get.Get.find<TokensGetXController>().accessToken}',
+                'Bearer ${Get.Get.find<TokensGetXController>().accessToken}',
           },
         ),
       )..interceptors.add(unauthorizedWrapper());
       final response =
           await _dio.post(changePassword, data: {newPassword, currentPassword});
       if (response.data['status'] == 'success') {
-        return {'message': 'Reset link sent on email.'};
+        return {
+          'message': "Password updated",
+          'tokens': TokensGetXController.fromJsonObject({
+            'refreshToken': response.data['refreshToken'],
+            'accessToken': response.data['accessToken']
+          })
+        };
       } else {
         return {'errorMessage': response.data['message']};
       }
