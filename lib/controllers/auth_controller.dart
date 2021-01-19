@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart' as Get;
 import 'package:readeem/getX_controllers/tokens_getX_controller.dart';
 import 'package:readeem/model/user.dart';
 import 'package:http_parser/http_parser.dart';
@@ -25,7 +26,7 @@ class AuthController {
           })
         };
       } else {
-        return {'errorMessage': 'An unknown error occurred, contact the team.'};
+        return {'errorMessage': response.data['message']};
       }
     } catch (err) {
       return catchDioError(err);
@@ -69,18 +70,69 @@ class AuthController {
           })
         };
       } else {
-        return {'errorMessage': 'An unknown error occurred, contact the team.'};
+        return {'errorMessage': response.data['message']};
       }
     } catch (err) {
       return catchDioError(err);
     }
   }
 
-  static Future forgotPassword({@required String email}) async {}
+  static Future<Map<String, dynamic>> forgotPasswordController(
+      {@required String email}) async {
+    try {
+      Dio _dio = Dio();
+      final response = await _dio.post(forgotPassword, data: {email});
+      if (response.data['status'] == 'success') {
+        return {'message': 'Reset link sent on email.'};
+      } else {
+        return {'errorMessage': response.data['message']};
+      }
+    } catch (err) {
+      return catchDioError(err);
+    }
+  }
 
-  static Future changePassword() async {}
+  static Future<Map<String, dynamic>> changePasswordController(
+      {@required String newPassword, @required String currentPassword}) async {
+    try {
+      Dio _dio = Dio(
+        BaseOptions(
+          headers: {
+            'Authorization':
+            'Bearer ${Get.Get.find<TokensGetXController>().accessToken}',
+          },
+        ),
+      )..interceptors.add(unauthorizedWrapper());
+      final response =
+          await _dio.post(changePassword, data: {newPassword, currentPassword});
+      if (response.data['status'] == 'success') {
+        return {'message': 'Reset link sent on email.'};
+      } else {
+        return {'errorMessage': response.data['message']};
+      }
+    } catch (err) {
+      return catchDioError(err);
+    }
+  }
 
-  static Future resetPassword() async {}
-
-  static Future logout() async {}
+  static Future<Map<String, dynamic>> logoutController() async {
+    try {
+      Dio _dio = Dio(
+        BaseOptions(
+          headers: {
+            'Authorization':
+                'Bearer ${Get.Get.find<TokensGetXController>().accessToken}',
+          },
+        ),
+      )..interceptors.add(unauthorizedWrapper());
+      final response = await _dio.get(logout);
+      if (response.data['status'] == 'success') {
+        return {'message': response.data['message']};
+      } else {
+        return {'errorMessage': response.data['message']};
+      }
+    } catch (err) {
+      return catchDioError(err);
+    }
+  }
 }
