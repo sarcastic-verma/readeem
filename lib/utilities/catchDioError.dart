@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'log_help.dart';
 
 Map<String, String> catchDioError(dynamic err) {
+  logger.d(err);
   if (err is DioError) {
     if (err.error is SocketException) {
       logger.e(err.error.message);

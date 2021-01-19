@@ -3,12 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as Get;
 import 'package:readeem/getX_controllers/tokens_getX_controller.dart';
 import 'package:readeem/model/user.dart';
-import 'package:readeem/utilities/log_help.dart';
+import 'package:readeem/utilities/catchDioError.dart';
 import 'package:readeem/utilities/routes.dart';
 import 'package:readeem/utilities/unauthorized_wrapper.dart';
 
 class UserController {
-  static Future<User> editUserController(
+  static Future<Map<String, dynamic>> editUserController(
       {@required String name,
       @required String email,
       @required String password,
@@ -27,13 +27,12 @@ class UserController {
       final response = await _dio
           .patch(editUser, data: {name, email, password, mobile, imgHash});
       if (response.data['status'] == 'success') {
-        return User.fromJson(response.data['user']);
+        return {'user': User.fromJson(response.data['user'])};
       } else {
         return null;
       }
     } catch (err) {
-      logger.e(err);
-      return null;
+      return catchDioError(err);
     }
   }
 }
