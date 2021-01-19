@@ -14,7 +14,8 @@ const login = authBase + '/login';
 const signUp = authBase + '/signUp';
 const forgotPassword = authBase + '/forgotPassword';
 const changePassword = authBase + '/changePassword';
-const resetPassword = authBase + '/resetPassword';
+const addPasswordToUser = authBase + '/addPasswordUser';
+const thirdParty = authBase + '/thirdParty';
 const logout = authBase + '/logout';
 
 //Item Route
