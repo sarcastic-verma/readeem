@@ -24,3 +24,7 @@ const logout = authBase + '/logout';
 //Book Routes
 
 //User Routes
+const editUser = userBase + '/patch';
+const updateInProgress = userBase + '/patch/updateInProgress';
+const removeFromFav = userBase + '/patch/removeFromFav';
+const addToFav = userBase + '/patch/addToFav';
